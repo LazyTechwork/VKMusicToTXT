@@ -13,9 +13,14 @@ setInterval(function () {
         method: 'GET'
     }, function (err, data) {
         if (err) return console.log(err);
-        console.log(data.response[0].status_audio);
         if (data.response[0].hasOwnProperty("status_audio")) {
             fs.writeFile("./sound.info.txt", data.response[0].status_audio.artist + " - " + data.response[0].status_audio.title, function (err) {
+                if (err) {
+                    return console.log(err);
+                }
+            });
+        }else {
+            fs.writeFile("./sound.info.txt", "", function (err) {
                 if (err) {
                     return console.log(err);
                 }
